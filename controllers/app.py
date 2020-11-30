@@ -29,6 +29,7 @@ class App:
         model = self._contents
         model.create_random_items()
         self._welcome.run()
+        user_input = input("Enter your name to have your score showed on our website:")
         game_controller = GameController(model)
 
         running = True
@@ -50,6 +51,5 @@ class App:
         # write score
         score = int(game_controller.time_score) + len(self._contents.player.backpack)*5
         print("Final score is:", score)  
-        user_input = input("Enter your name to have your score showed on website:")
         scores_db = DatabaseManager("scores.db")
         scores_db.add(user_input, score)

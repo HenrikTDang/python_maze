@@ -23,5 +23,17 @@ def list_scores():
         "scores": [score.to_dict() for score in data]
     }
 
+@app.route("/api/delete", methods=["DELETE"])
+def delete_score():
+    data = request.get_json()
+    if data is None:
+        return "Invalid JSON", 400
+
+    manager = DatabaseManager()
+    manager.remove_by_name(data["name"])
+
+    return "", 204
+
+    
 if __name__ == "__main__":
     app.run(debug=True)
