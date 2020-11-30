@@ -1,6 +1,6 @@
 import sqlite3
 
-from .score import Score
+from models.score import Score
 
 class DatabaseManager:
     """ This class is to manage a collection of scores on a database
