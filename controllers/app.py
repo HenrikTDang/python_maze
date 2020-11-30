@@ -49,7 +49,8 @@ class App:
                 continue
 
         # write score
-        score = int(game_controller.time_score) + len(self._contents.player.backpack)*5
+        score = int(game_controller.time_score)*2 + len(self._contents.player.backpack)*15
         print("Final score is:", score)  
         scores_db = DatabaseManager("scores.db")
-        scores_db.add(user_input, score)
+        if score >= 80:
+            scores_db.add(user_input, score)

@@ -49,7 +49,7 @@ class Maze:
         """
         if self._maze[row_num][col_num] in {' '}:
             return True
-        elif self._maze[row_num][col_num] in {'E'} and len(self.player.backpack) == 3:
+        elif self._maze[row_num][col_num] in {'E'} and len(self.player.backpack) >= 3:
             return True
         else:
             return False
