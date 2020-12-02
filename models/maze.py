@@ -47,7 +47,9 @@ class Maze:
 
         Return: Boolean: True if the tested position is a space ' ', otherwise return Fasle
         """
-        if self._maze[row_num][col_num] in {' ', 'E'}:
+        if self._maze[row_num][col_num] in {' '}:
+            return True
+        elif self._maze[row_num][col_num] in {'E'} and len(self.player.backpack) >= 3:
             return True
         else:
             return False
@@ -122,7 +124,7 @@ class Maze:
             if equal to 'E': True
             if not: False
         """
-        if self._maze[row_num][col_num+1] == 'E':
+        if self._maze[row_num][col_num] == 'E':
             return True
         else:
             return False

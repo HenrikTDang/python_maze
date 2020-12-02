@@ -2,6 +2,7 @@ from models.maze import Maze
 from .welcome_controller import WelcomeController
 from .game_controller import GameController
 from .end_game_controller import EndGameController
+from models.score_database_manager import DatabaseManager
 import pygame
 
 class App:
@@ -19,7 +20,6 @@ class App:
         self._contents = Maze(filename, player)
         self._welcome = WelcomeController(self._contents)
         self._endgame = EndGameController(self._contents.player.backpack, self._contents)
-
 
 
     def run(self):
@@ -46,8 +46,13 @@ class App:
                 print(e)
                 running = False
                 continue
-
+        pygame.quit()
 
         # write score
-        score = int(game_controller.time_score) + len(self._contents.player.backpack)*5
-        print("Final score is:", score)      
+        user_input = input("Enter your name to have your high score showed on our website:")
+        score = int(game_controller.time_score)*2 + len(self._contents.player.backpack)*15
+        print("Final score is:", score)  
+        scores_db = DatabaseManager("scores.db")
+        if score >= 80 and user_input:
+            scores_db.add(user_input, score)
+
