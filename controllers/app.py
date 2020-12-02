@@ -29,7 +29,6 @@ class App:
         model = self._contents
         model.create_random_items()
         self._welcome.run()
-        user_input = input("Enter your name to have your score showed on our website:")
         game_controller = GameController(model)
 
         running = True
@@ -47,10 +46,13 @@ class App:
                 print(e)
                 running = False
                 continue
+        pygame.quit()
 
         # write score
+        user_input = input("Enter your name to have your high score showed on our website:")
         score = int(game_controller.time_score)*2 + len(self._contents.player.backpack)*15
         print("Final score is:", score)  
         scores_db = DatabaseManager("scores.db")
-        if score >= 80:
+        if score >= 80 and user_input:
             scores_db.add(user_input, score)
+

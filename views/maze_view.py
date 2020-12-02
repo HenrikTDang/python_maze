@@ -4,16 +4,38 @@ import os
 class MazeView:
     def __init__(self, maze):
         self._maze = maze
-        self._display_surf = pygame.display.set_mode((1250,400), pygame.HWSURFACE)
+        length_of_window = len(self._maze.maze[0])*32 + 150
+        width_of_window = len(self._maze.maze)*32 + 200
+        self._display_surf = pygame.display.set_mode((length_of_window,width_of_window), pygame.HWSURFACE)
+        blue = (0, 0, 128)
+
+        self._display_surf.fill(blue)
+        # self._display_surf = pygame.image.load(os.path.join("images","background.jfif")).convert()
+
         self._block_img = pygame.image.load(os.path.join("images","block.png")).convert()
-        self._player_img = pygame.image.load(os.path.join("images","player.png")).convert()
-        self._player_img.set_colorkey((0,0,0))
-        self._letter_A = pygame.image.load(os.path.join("images","A.png")).convert()
-        self._letter_B = pygame.image.load(os.path.join("images","B.png")).convert()
-        self._letter_C = pygame.image.load(os.path.join("images","C.png")).convert()
-        self._letter_D = pygame.image.load(os.path.join("images","D.png")).convert()
-        self._letter_H = pygame.image.load(os.path.join("images","H.png")).convert()
-        self._exit_door = pygame.image.load(os.path.join("images","door.png")).convert()
+        theme_pics = pygame.image.load(os.path.join("images","theme.jpg")).convert()   #background
+        self._theme_img = pygame.transform.scale(theme_pics, (32,32))
+
+        player_img = pygame.image.load(os.path.join("images","player.png")).convert()
+        self._player_img = pygame.transform.scale(player_img, (32,32))
+
+        axe_img = pygame.image.load(os.path.join("images","axe.png")).convert()
+        self._axe = pygame.transform.scale(axe_img, (32,32))
+
+        bow_img = pygame.image.load(os.path.join("images","bow.png")).convert()
+        self._bow = pygame.transform.scale(bow_img, (32,32))
+
+        pickaxe_img = pygame.image.load(os.path.join("images","pickaxe.png")).convert()
+        self._pickaxe = pygame.transform.scale(pickaxe_img, (32,32))
+
+        shovel_img = pygame.image.load(os.path.join("images","shield.png")).convert()
+        self._shovel  = pygame.transform.scale(shovel_img, (32,32))
+
+        sword_img = pygame.image.load(os.path.join("images","sword.png")).convert()
+        self._sword = pygame.transform.scale(sword_img, (32,32))
+
+        exit_door = pygame.image.load(os.path.join("images","door.png")).convert()
+        self._exit_door = pygame.transform.scale(exit_door, (32,32))
         self.end_game = False
 
         self._font = pygame.font.Font(None, 40)
@@ -52,14 +74,16 @@ class MazeView:
         if self._timer <= 0:
             self.end_game = True
 
+        x = len(self._maze.maze[0])*32 - 150
+        y = len(self._maze.maze)*32 + 100
         # draws text on new surface
         txt = self._font.render(str(round(self._timer, 2)), True, self._red)
         #draws txt on pygame
-        self._display_surf.blit(txt, (1100, 350))
+        self._display_surf.blit(txt, (x+140, y+30))
         #displays screen
 
         img = self._font.render('Time remaining', True, self._red)
-        self._display_surf.blit(img, (1000, 300))
+        self._display_surf.blit(img, (x, y))
 
         pygame.display.flip()
         
@@ -76,18 +100,20 @@ class MazeView:
             for x,element in enumerate(row):
                 if element == 'x':
                     self._display_surf.blit(self._block_img, self.get_position(x,y))
+                if element == ' ':
+                    self._display_surf.blit(self._theme_img, self.get_position(x,y))
                 if element == "P":
                     self._display_surf.blit(self._player_img, self.get_position(x,y))
                 if element == "A":
-                    self._display_surf.blit(self._letter_A, self.get_position(x,y))
+                    self._display_surf.blit(self._axe, self.get_position(x,y))
                 if element == "B":
-                    self._display_surf.blit(self._letter_B, self.get_position(x,y))
+                    self._display_surf.blit(self._bow, self.get_position(x,y))
                 if element == "C":
-                    self._display_surf.blit(self._letter_C, self.get_position(x,y))
+                    self._display_surf.blit(self._pickaxe, self.get_position(x,y))
                 if element == "D":
-                    self._display_surf.blit(self._letter_D, self.get_position(x,y))
+                    self._display_surf.blit(self._shovel, self.get_position(x,y))
                 if element == "H":
-                    self._display_surf.blit(self._letter_H, self.get_position(x,y))
+                    self._display_surf.blit(self._sword, self.get_position(x,y))
                 if element == "E":
                     self._display_surf.blit(self._exit_door, self.get_position(x,y))
         pygame.display.update()

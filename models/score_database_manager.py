@@ -1,6 +1,6 @@
 import sqlite3
 
-from models.score import Score
+from .score import Score
 
 class DatabaseManager:
     """ This class is to manage a collection of scores on a database
@@ -53,5 +53,7 @@ if __name__ == "__main__":
     data = manager.get_all()
     print(data)
 
-    manager.add("Test", 999)
-    # manager.remove_by_name("Test")
+    # manager.add("Test", 999)
+    manager.remove_by_name("Joo")
+
+#* python -m models.score_database_manager

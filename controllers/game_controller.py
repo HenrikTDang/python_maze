@@ -54,8 +54,9 @@ class GameController:
         and the game will end.
 
         """
-        #Create a Clock object and timer
-        clock = pygame.time.Clock()
+        # allow user to hold the keys
+        pygame.key.set_repeat(200,200)
+
         p_idx = self._maze.find_player_idx()
 
         [row_idx, col_idx] = p_idx

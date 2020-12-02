@@ -124,7 +124,7 @@ class Maze:
             if equal to 'E': True
             if not: False
         """
-        if self._maze[row_num][col_num+1] == 'E':
+        if self._maze[row_num][col_num] == 'E':
             return True
         else:
             return False
